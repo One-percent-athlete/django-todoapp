@@ -28,7 +28,7 @@ class Priority(models.Model):
 class Todo(models.Model):
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     task_name = models.CharField("Task Name", max_length=50)
-    task_body = models.CharField("Task Body", max_length=250)
+    task_body = models.CharField("Task Body", max_length=200)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
     priority = models.ForeignKey(Priority, on_delete=models.CASCADE, default=3)
     deadline = models.DateTimeField("Deadline")
@@ -41,23 +41,5 @@ class Todo(models.Model):
             f"{self.user}"
             f"({self.created_at:%Y-%m-%d %H:%M}): "
             f"{self.task_name}..."
-            f"{self.task_body}..."
         )
     
-    
-    @property
-    def Days_till(self):
-        today =date.today()
-        days_till = self.deadline.date() - today
-        days_till_stripped = str(days_till).split(" ", 1)[0]
-        days_int = int(days_till_stripped)
-        return days_int
-    
-    @property
-    def Is_past(self):
-        today = date.today()
-        if self.event_date.date() < today:
-            text = "Past"
-        else:
-            text = "Future"
-        return text
