@@ -11,6 +11,20 @@ def home(request):
     else:
         return render(request, "home.html")
     
+def search(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            keyword = request.POST["searched"]
+            todos = Todo.objects.filter(task_body__contains=keyword)
+            return render(request, "search.html", {"todos": todos})
+        else:
+            messages.success(request, "Try Another Keyword?")
+        return render(request, "search.html")
+    else:
+        messages.success(request, "Please Login Or Sign Up First.")
+        return redirect("home")
+
+
 def add_todo(request):
     if request.user.is_authenticated:
         if request.method == "POST":
