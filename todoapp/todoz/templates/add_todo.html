@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if messages %}
+    {% for m in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ m }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+{% endif %}
+{% if user.is_authenticated %}
+<section class="py-5">
+  <div class="container px-4 px-lg-2 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-md-3 justify-content-center">
+          <div class="col mb-5">
+              <div class="card h-100">
+                  <div class="card-body p-4">
+                      <div class="text-center">
+                        <form action="{% url 'add_todo' %}" method="POST">
+                          {% csrf_token %}
+                              {{ form.as_p }}
+                              <br><br>
+                              <input type="submit" class="btn btn-outline-success">
+                          </form>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+{% else %}
+<center>
+    <div class="container col-10">
+        <br><br>
+        <h1>Access Denied...</h1>
+        <br><br>
+        <a class="btn btn-outline-success" href="{% url 'login' %}">Login</a>
+        <a class="btn btn-warning" href="{% url 'register' %}">Sign Up</a>
+    </div>
+</center>
+{% endif %}
+
+
+{% endblock %}

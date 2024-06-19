@@ -1,0 +1,38 @@
+<nav class="p-2 mb-3 border-bottom">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a class="navbar-brand bg-warning text-light rounded mx-4" href="{% url 'home' %}"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-lightbulb-fill m-2" viewBox="0 0 16 16">
+            <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13h-5a.5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6zm3 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1-.5-.5z"/>
+            </svg></a>
+            <h5 class="mb-3 mb-lg-0 me-lg-3 text-center mt-auto mt-md-0">Todoz</h5>
+            {% if user.is_superuser %}
+            <a class="btn btn-outline-warning mx-3" href="http://127.0.0.1:8000/admin">Admin</a>
+            {% endif %}
+
+    
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            
+        </ul>
+    
+        <form class="d-flex col-10 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </form>
+        <div class="vr"></div>
+        {% if user.is_authenticated %}
+        <div class="text-end m-2">
+            <a class="btn btn-outline-warning" href="{% url 'logout' %}">Sign out</a></li>
+        </div>
+        {% else %}
+        <ul class="nav justify-content-end m-2">
+            <li class="nav-item mx-2 btn btn-outline-success">
+                <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item mx-2 btn btn-warning">
+                <a class="dropdown-item" href="{% url 'register' %}">Sign Up</a>
+            </li>
+        </ul>   
+        {% endif %}
+        </div>
+    </div>
+</nav>
